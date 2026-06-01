@@ -4,7 +4,6 @@ import {
   type FormEvent,
   type KeyboardEvent,
   useEffect,
-  useMemo,
   useRef,
   useState,
 } from "react";
@@ -65,14 +64,6 @@ const PROMPT_GROUPS = [
   { title: "Product", description: "AI Market Brief and product behavior" },
   { title: "Support", description: "Client questions and internal workflow" },
   { title: "Policy", description: "Safe fallback and advice boundaries" },
-];
-
-const DOCS = [
-  "Company overview",
-  "Trading risk policy",
-  "AI Market Brief",
-  "Support playbook",
-  "Client FAQ",
 ];
 
 function cn(...classes: Array<string | false | null | undefined>) {
