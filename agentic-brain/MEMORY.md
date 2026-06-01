@@ -67,3 +67,11 @@ Next:
 - Build API route.
 - Build UI.
 - Add final README and polish.
+
+## Refinement Note - Answer Precision
+
+During testing, the daily drawdown question returned both the daily drawdown section and the total drawdown section because both sections shared similar keywords.
+
+The answer generation logic was refined to use only the top retrieved section for the final answer. This makes responses more focused, easier to read, and better for a small MVP demo.
+
+This was an intentional human/product-quality correction after testing the AI-assisted implementation.

@@ -56,20 +56,12 @@ export function buildAnswer(matches: RetrievedSection[]): KnowledgeAnswer {
     };
   }
 
-  const relevantMatches = matches
-    .filter((match) => match.score >= Math.max(2, topMatch.score * 0.55))
-    .slice(0, 2);
-
-  const answer = relevantMatches
-    .map((match) => stripMarkdown(match.content))
-    .join("\n\n")
-    .slice(0, 1400)
-    .trim();
+  const answer = stripMarkdown(topMatch.content).slice(0, 1000).trim();
 
   return {
     answer,
     found: true,
     confidence: confidenceFromScore(topMatch.score),
-    sources: buildSourceList(relevantMatches),
+    sources: buildSourceList([topMatch]),
   };
 }
