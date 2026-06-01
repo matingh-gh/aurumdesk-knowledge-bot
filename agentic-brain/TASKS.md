@@ -24,7 +24,7 @@
 - [x] Add source display in UI
 - [x] Add safe fallback behavior for unknown questions
 - [x] Improve README
-- [ ] Run local testing
+- [x] Run local testing
 - [ ] Record demo video or take screenshots
 - [ ] Create GitHub repository
 - [ ] Push final project to GitHub
@@ -36,3 +36,11 @@
 - [ ] Add basic evaluation script
 - [ ] Add dark/light UI polish
 - [ ] Add deployment link if time allows
+
+## Final Verification
+
+- [x] `npm run lint` passed successfully
+- [x] `npm run build` passed successfully
+- [x] `/api/ask` tested with a known answer question
+- [x] `/api/ask` tested with an unknown question
+- [x] UI tested locally at `http://localhost:3000`
