@@ -15,14 +15,14 @@
 - [x] Implement local document loading
 - [x] Implement simple retrieval logic
 - [x] Implement answer generation logic
-- [ ] Create /api/ask endpoint
+- [x] Create /api/ask endpoint
 - [ ] Build clean chat UI
 
 ## Remaining Tasks
 
 - [ ] Add sample question buttons
 - [ ] Add source display in UI
-- [ ] Add safe fallback behavior for unknown questions
+- [x] Add safe fallback behavior for unknown questions
 - [ ] Improve README
 - [ ] Run local testing
 - [ ] Record demo video or take screenshots
