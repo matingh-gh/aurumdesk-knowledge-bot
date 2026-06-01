@@ -16,12 +16,12 @@
 - [x] Implement simple retrieval logic
 - [x] Implement answer generation logic
 - [x] Create /api/ask endpoint
-- [ ] Build clean chat UI
+- [x] Build clean chat UI
 
 ## Remaining Tasks
 
-- [ ] Add sample question buttons
-- [ ] Add source display in UI
+- [x] Add sample question buttons
+- [x] Add source display in UI
 - [x] Add safe fallback behavior for unknown questions
 - [ ] Improve README
 - [ ] Run local testing
