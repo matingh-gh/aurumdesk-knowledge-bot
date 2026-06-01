@@ -12,9 +12,9 @@
 
 ## In Progress
 
-- [ ] Implement local document loading
-- [ ] Implement simple retrieval logic
-- [ ] Implement answer generation logic
+- [x] Implement local document loading
+- [x] Implement simple retrieval logic
+- [x] Implement answer generation logic
 - [ ] Create /api/ask endpoint
 - [ ] Build clean chat UI
 
