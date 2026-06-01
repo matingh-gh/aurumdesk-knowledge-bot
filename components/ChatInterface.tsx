@@ -60,6 +60,13 @@ const SAMPLE_QUESTIONS = [
   "Who is the CEO of AurumDesk AI?",
 ];
 
+const PROMPT_GROUPS = [
+  { title: "Risk", description: "Drawdown, account limits, escalation rules" },
+  { title: "Product", description: "AI Market Brief and product behavior" },
+  { title: "Support", description: "Client questions and internal workflow" },
+  { title: "Policy", description: "Safe fallback and advice boundaries" },
+];
+
 const DOCS = [
   "Company overview",
   "Trading risk policy",
@@ -81,28 +88,40 @@ function getTheme(theme: Theme) {
 
   return {
     dark,
-    page: dark ? "bg-[#09090B] text-zinc-100" : "bg-[#F4F4F0] text-zinc-950",
-    shell: dark
-      ? "border-white/[0.08] bg-[#0D0D10] shadow-[0_32px_120px_rgba(0,0,0,0.42)]"
-      : "border-zinc-200 bg-white shadow-[0_28px_90px_rgba(24,24,27,0.12)]",
-    sidebar: dark ? "bg-[#111114] border-white/[0.08]" : "bg-[#18181B] border-black/10",
-    workspace: dark ? "bg-[#09090B]" : "bg-[#FAFAF8]",
-    panel: dark ? "bg-[#111114] border-white/[0.08]" : "bg-white border-zinc-200",
-    panelSoft: dark ? "bg-white/[0.035] border-white/[0.07]" : "bg-zinc-50 border-zinc-200",
-    border: dark ? "border-white/[0.08]" : "border-zinc-200",
-    borderSoft: dark ? "border-white/[0.06]" : "border-zinc-200/80",
-    muted: dark ? "text-zinc-400" : "text-zinc-600",
-    subtle: dark ? "text-zinc-500" : "text-zinc-500",
+    page: dark
+      ? "bg-[#141b15] text-stone-100"
+      : "bg-[#e5e4dc] text-stone-950",
+    app: dark
+      ? "border-white/[0.08] bg-[#202820]/80 shadow-[0_36px_120px_rgba(0,0,0,0.45)]"
+      : "border-white/80 bg-[#f4f3ec]/82 shadow-[0_32px_90px_rgba(20,24,20,0.18)]",
+    panel: dark
+      ? "border-white/[0.08] bg-white/[0.075]"
+      : "border-black/[0.06] bg-white/62",
+    panelStrong: dark
+      ? "border-white/[0.10] bg-[#303830]"
+      : "border-black/[0.06] bg-white/78",
+    cardLight: dark
+      ? "bg-[#e9e8df] text-stone-950"
+      : "bg-white/78 text-stone-950",
+    muted: dark ? "text-stone-400" : "text-stone-600",
+    subtle: dark ? "text-stone-500" : "text-stone-500",
+    border: dark ? "border-white/[0.08]" : "border-black/[0.06]",
+    softBorder: dark ? "border-white/[0.10]" : "border-black/[0.06]",
     chip: dark
-      ? "border-white/[0.08] bg-white/[0.035] text-zinc-300 hover:bg-white/[0.07] hover:text-white"
-      : "border-zinc-200 bg-white text-zinc-700 hover:border-zinc-300 hover:bg-zinc-50 hover:text-zinc-950",
+      ? "border-white/[0.10] bg-white/[0.075] text-stone-300 hover:bg-white/[0.12] hover:text-white"
+      : "border-black/[0.06] bg-white/70 text-stone-700 hover:bg-white hover:text-stone-950",
     input: dark
-      ? "border-white/[0.10] bg-[#111114] text-zinc-100 placeholder:text-zinc-500 focus-within:border-indigo-400/50 focus-within:ring-indigo-400/10"
-      : "border-zinc-200 bg-white text-zinc-950 placeholder:text-zinc-400 focus-within:border-indigo-500/40 focus-within:ring-indigo-500/10",
-    user: dark ? "bg-indigo-400 text-zinc-950" : "bg-zinc-950 text-white",
-    assistant: dark ? "bg-[#111114] border-white/[0.08]" : "bg-white border-zinc-200",
-    send: dark ? "bg-indigo-400 text-zinc-950 hover:bg-indigo-300" : "bg-zinc-950 text-white hover:bg-zinc-800",
-    sendDisabled: dark ? "bg-white/[0.08] text-zinc-600" : "bg-zinc-200 text-zinc-400",
+      ? "bg-[#6f7770]/75 text-white placeholder:text-stone-300"
+      : "bg-white/80 text-stone-950 placeholder:text-stone-400",
+    accent: dark
+      ? "bg-[#c8d7a5] text-[#151a14] hover:bg-[#d7e5b4]"
+      : "bg-[#1c241c] text-white hover:bg-[#303930]",
+    accentSoft: dark
+      ? "border-[#c8d7a5]/25 bg-[#c8d7a5]/10 text-[#dce9bd]"
+      : "border-emerald-600/20 bg-emerald-50 text-emerald-700",
+    disabled: dark
+      ? "bg-white/[0.12] text-stone-500"
+      : "bg-stone-200 text-stone-400",
   };
 }
 
@@ -115,30 +134,30 @@ function confidenceLabel(confidence: Confidence) {
 function confidenceClass(theme: Theme, confidence: Confidence) {
   if (confidence === "high") {
     return theme === "dark"
-      ? "border-emerald-400/20 bg-emerald-400/10 text-emerald-300"
+      ? "border-emerald-300/20 bg-emerald-300/10 text-emerald-200"
       : "border-emerald-200 bg-emerald-50 text-emerald-700";
   }
 
   if (confidence === "medium") {
     return theme === "dark"
-      ? "border-amber-400/20 bg-amber-400/10 text-amber-300"
+      ? "border-amber-300/20 bg-amber-300/10 text-amber-200"
       : "border-amber-200 bg-amber-50 text-amber-700";
   }
 
   return theme === "dark"
-    ? "border-zinc-500/20 bg-zinc-500/10 text-zinc-300"
-    : "border-zinc-200 bg-zinc-100 text-zinc-600";
+    ? "border-stone-300/20 bg-stone-300/10 text-stone-300"
+    : "border-stone-200 bg-stone-100 text-stone-600";
 }
 
-function foundBadgeClass(theme: Theme, found: boolean) {
+function foundClass(theme: Theme, found: boolean) {
   if (found) {
     return theme === "dark"
-      ? "border-emerald-400/20 bg-emerald-400/10 text-emerald-300"
+      ? "border-emerald-300/20 bg-emerald-300/10 text-emerald-200"
       : "border-emerald-200 bg-emerald-50 text-emerald-700";
   }
 
   return theme === "dark"
-    ? "border-amber-400/20 bg-amber-400/10 text-amber-300"
+    ? "border-amber-300/20 bg-amber-300/10 text-amber-200"
     : "border-amber-200 bg-amber-50 text-amber-700";
 }
 
@@ -146,88 +165,18 @@ function scorePercent(score: number) {
   return Math.max(0, Math.min(100, Math.round((score / 12) * 100)));
 }
 
-function Sidebar({
-  loading,
-  onPick,
-}: {
-  loading: boolean;
-  onPick: (question: string) => void;
-}) {
-  return (
-    <aside className="hidden w-[244px] shrink-0 flex-col border-r bg-[#18181B] text-zinc-300 md:flex">
-      <div className="flex h-16 items-center gap-3 border-b border-white/[0.08] px-4">
-        <div className="grid h-9 w-9 place-items-center rounded-xl bg-indigo-400 text-zinc-950">
-          <BrainCircuit className="h-4 w-4" />
-        </div>
-        <div className="min-w-0">
-          <p className="truncate text-sm font-semibold text-white">AurumDesk</p>
-          <p className="truncate text-[11px] uppercase tracking-[0.18em] text-zinc-500">
-            Knowledge Bot
-          </p>
-        </div>
-      </div>
-
-      <div className="flex-1 overflow-y-auto px-3 py-4">
-        <section>
-          <p className="mb-2 px-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-zinc-500">
-            Knowledge base
-          </p>
-
-          <div className="space-y-1">
-            {DOCS.map((doc) => (
-              <div
-                key={doc}
-                className="flex items-center gap-2 rounded-xl px-2.5 py-2 text-[13px] text-zinc-400 transition hover:bg-white/[0.06] hover:text-white"
-              >
-                <FileText className="h-3.5 w-3.5 text-zinc-600" />
-                <span className="truncate">{doc}</span>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="mt-7">
-          <p className="mb-2 px-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-zinc-500">
-            Suggested questions
-          </p>
-
-          <div className="space-y-1">
-            {SAMPLE_QUESTIONS.map((question) => (
-              <button
-                key={question}
-                type="button"
-                disabled={loading}
-                onClick={() => onPick(question)}
-                className="w-full touch-manipulation rounded-xl px-2.5 py-2 text-left text-[12.5px] leading-5 text-zinc-400 transition hover:bg-white/[0.06] hover:text-white disabled:cursor-not-allowed disabled:opacity-45"
-              >
-                {question}
-              </button>
-            ))}
-          </div>
-        </section>
-      </div>
-
-      <div className="border-t border-white/[0.08] p-3">
-        <div className="rounded-2xl border border-white/[0.08] bg-white/[0.04] p-3">
-          <div className="flex items-center gap-2">
-            <ShieldCheck className="h-4 w-4 text-emerald-400" />
-            <p className="text-xs font-medium text-zinc-200">Safe fallback</p>
-          </div>
-          <p className="mt-1 text-[11px] leading-5 text-zinc-500">
-            Unsupported questions are refused instead of invented.
-          </p>
-        </div>
-      </div>
-    </aside>
-  );
-}
-
-function SourceBlock({ sources, theme }: { sources: Source[]; theme: Theme }) {
+function SourceCards({ sources, theme }: { sources: Source[]; theme: Theme }) {
   const t = getTheme(theme);
 
   if (!sources.length) {
     return (
-      <div className={cn("rounded-2xl border p-4 text-sm leading-6", t.panelSoft, t.muted)}>
+      <div
+        className={cn(
+          "rounded-3xl border p-4 text-sm leading-6",
+          t.panel,
+          t.muted,
+        )}
+      >
         No source matched. The assistant used the safe fallback and did not invent an answer.
       </div>
     );
@@ -241,13 +190,15 @@ function SourceBlock({ sources, theme }: { sources: Source[]; theme: Theme }) {
         return (
           <article
             key={`${source.document}-${source.title}-${index}`}
-            className={cn("rounded-2xl border p-4", t.panelSoft)}
+            className={cn("rounded-3xl border p-4", t.panel)}
           >
             <div className="flex items-start gap-3">
               <div
                 className={cn(
-                  "grid h-9 w-9 shrink-0 place-items-center rounded-xl",
-                  theme === "dark" ? "bg-white/[0.06]" : "border border-zinc-200 bg-white",
+                  "grid h-10 w-10 shrink-0 place-items-center rounded-2xl",
+                  theme === "dark"
+                    ? "bg-white/[0.10] text-stone-200"
+                    : "bg-stone-950 text-white",
                 )}
               >
                 <FileText className="h-4 w-4" />
@@ -255,11 +206,21 @@ function SourceBlock({ sources, theme }: { sources: Source[]; theme: Theme }) {
 
               <div className="min-w-0 flex-1">
                 <p className="truncate text-sm font-semibold">{source.title}</p>
-                <p className={cn("mt-1 break-words text-xs", t.muted)}>{source.document}</p>
+                <p className={cn("mt-1 break-words text-xs", t.muted)}>
+                  {source.document}
+                </p>
 
                 <div className="mt-3 flex items-center gap-2">
-                  <div className={cn("h-1.5 flex-1 overflow-hidden rounded-full", theme === "dark" ? "bg-white/[0.08]" : "bg-zinc-200")}>
-                    <div className="h-full rounded-full bg-indigo-500" style={{ width: `${percent}%` }} />
+                  <div
+                    className={cn(
+                      "h-1.5 flex-1 overflow-hidden rounded-full",
+                      theme === "dark" ? "bg-white/[0.12]" : "bg-stone-200",
+                    )}
+                  >
+                    <div
+                      className="h-full rounded-full bg-[#c8d7a5]"
+                      style={{ width: `${percent}%` }}
+                    />
                   </div>
                   <span className={cn("text-[11px] tabular-nums", t.subtle)}>
                     {source.score.toFixed(2)}
@@ -276,8 +237,8 @@ function SourceBlock({ sources, theme }: { sources: Source[]; theme: Theme }) {
                     className={cn(
                       "rounded-full border px-2 py-1 text-[11px]",
                       theme === "dark"
-                        ? "border-white/[0.08] bg-white/[0.045] text-zinc-300"
-                        : "border-zinc-200 bg-white text-zinc-600",
+                        ? "border-white/[0.10] bg-white/[0.07] text-stone-300"
+                        : "border-black/[0.06] bg-white/70 text-stone-600",
                     )}
                   >
                     {term}
@@ -292,8 +253,71 @@ function SourceBlock({ sources, theme }: { sources: Source[]; theme: Theme }) {
   );
 }
 
-function EmptyState({
+function Header({
   theme,
+  setTheme,
+  clearChat,
+  hasMessages,
+}: {
+  theme: Theme;
+  setTheme: (theme: Theme) => void;
+  clearChat: () => void;
+  hasMessages: boolean;
+}) {
+  const t = getTheme(theme);
+
+  return (
+    <header className="flex items-center justify-between gap-3">
+      <div className="flex min-w-0 items-center gap-3">
+        <div
+          className={cn(
+            "grid h-10 w-10 shrink-0 place-items-center rounded-2xl",
+            theme === "dark" ? "bg-[#c8d7a5] text-[#151a14]" : "bg-[#1c241c] text-white",
+          )}
+        >
+          <BrainCircuit className="h-5 w-5" />
+        </div>
+
+        <div className="min-w-0">
+          <p className="truncate text-sm font-semibold">AurumDesk AI</p>
+          <p className={cn("truncate text-xs", t.muted)}>Knowledge command studio</p>
+        </div>
+      </div>
+
+      <div className="flex shrink-0 items-center gap-2">
+        {hasMessages ? (
+          <button
+            type="button"
+            onClick={clearChat}
+            className={cn(
+              "hidden rounded-full border px-3 py-2 text-xs font-medium transition sm:block",
+              t.chip,
+            )}
+          >
+            New chat
+          </button>
+        ) : null}
+
+        <button
+          type="button"
+          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          aria-label="Toggle theme"
+          className={cn(
+            "grid h-10 w-10 touch-manipulation place-items-center rounded-2xl border transition",
+            t.chip,
+          )}
+        >
+          {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+        </button>
+      </div>
+    </header>
+  );
+}
+
+function LeftStudio({
+  theme,
+  loading,
+  onPick,
 }: {
   theme: Theme;
   loading: boolean;
@@ -302,41 +326,101 @@ function EmptyState({
   const t = getTheme(theme);
 
   return (
-    <section className={cn("rounded-3xl border p-5 sm:p-6", t.panel)}>
-      <div className="flex items-start gap-4">
-        <div
-          className={cn(
-            "grid h-12 w-12 shrink-0 place-items-center rounded-2xl",
-            theme === "dark" ? "bg-indigo-400 text-zinc-950" : "bg-zinc-950 text-white",
-          )}
-        >
-          <Sparkles className="h-5 w-5" />
+    <section className="space-y-5">
+      <div className={cn("rounded-[2rem] border p-5 sm:p-6", t.panel)}>
+        <div className="mb-8 flex items-center justify-between">
+          <span
+            className={cn(
+              "rounded-full border px-3 py-1.5 text-xs font-medium",
+              t.accentSoft,
+            )}
+          >
+            Local docs only
+          </span>
+          <Database className={cn("h-5 w-5", t.subtle)} />
         </div>
 
-        <div>
-          <h2 className="text-xl font-semibold tracking-tight">Ready when you are.</h2>
-          <p className={cn("mt-2 max-w-2xl text-sm leading-6", t.muted)}>
-            Ask a question from the chips above or type your own prompt below.
-            The assistant answers only from approved local company documents and shows its sources.
-          </p>
+        <h1 className="max-w-xl text-5xl font-light leading-[0.95] tracking-[-0.06em] sm:text-6xl lg:text-7xl">
+          Ask with
+          <br />
+          <span className={theme === "dark" ? "text-[#c8d7a5]" : "text-[#73805e]"}>
+            context.
+          </span>
+          <br />
+          Answer with
+          <br />
+          sources.
+        </h1>
 
-          <div className={cn("mt-5 flex flex-wrap gap-2 border-t pt-4", t.borderSoft)}>
-            <span className={cn("inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs", t.panelSoft, t.muted)}>
-              <Database className="h-3.5 w-3.5" />
-              Local Markdown docs
-            </span>
-            <span className={cn("inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs", t.panelSoft, t.muted)}>
-              <FileSearch className="h-3.5 w-3.5" />
-              Source-aware answers
-            </span>
-            <span className={cn("inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs", t.panelSoft, t.muted)}>
-              <ShieldCheck className="h-3.5 w-3.5" />
-              Safe fallback
-            </span>
+        <p className={cn("mt-6 max-w-md text-sm leading-7", t.muted)}>
+          A compact knowledge assistant for a fictional finance and trading AI company.
+          It answers from local Markdown documents and shows the source behind each answer.
+        </p>
+      </div>
+
+      <div className="grid gap-3 sm:grid-cols-2">
+        {PROMPT_GROUPS.map((item) => (
+          <div key={item.title} className={cn("rounded-[1.6rem] border p-4", t.panel)}>
+            <div
+              className={cn(
+                "mb-4 grid h-10 w-10 place-items-center rounded-2xl",
+                theme === "dark" ? "bg-white/[0.10]" : "bg-white/80",
+              )}
+            >
+              <Sparkles className="h-4 w-4" />
+            </div>
+            <p className="font-semibold">{item.title}</p>
+            <p className={cn("mt-1 text-xs leading-5", t.muted)}>{item.description}</p>
           </div>
+        ))}
+      </div>
+
+      <div className={cn("rounded-[2rem] border p-4", t.panel)}>
+        <div className="mb-3 flex items-center justify-between">
+          <p className="text-sm font-semibold">Prompt library</p>
+          <span className={cn("text-xs", t.subtle)}>6 tests</span>
+        </div>
+
+        <div className="flex flex-wrap gap-2">
+          {SAMPLE_QUESTIONS.map((sample) => (
+            <button
+              key={sample}
+              type="button"
+              disabled={loading}
+              onClick={() => onPick(sample)}
+              className={cn(
+                "touch-manipulation rounded-full border px-3 py-2 text-xs leading-5 transition disabled:cursor-not-allowed disabled:opacity-50",
+                t.chip,
+              )}
+            >
+              {sample}
+            </button>
+          ))}
         </div>
       </div>
     </section>
+  );
+}
+
+function EmptyChat({ theme }: { theme: Theme }) {
+  const t = getTheme(theme);
+
+  return (
+    <div className="flex min-h-[260px] flex-col items-center justify-center px-5 py-8 text-center">
+      <div
+        className={cn(
+          "mb-4 grid h-14 w-14 place-items-center rounded-3xl",
+          theme === "dark" ? "bg-[#c8d7a5] text-[#151a14]" : "bg-[#1c241c] text-white",
+        )}
+      >
+        <Bot className="h-6 w-6" />
+      </div>
+
+      <h2 className="text-xl font-semibold">Ready to query the company brain</h2>
+      <p className={cn("mt-2 max-w-sm text-sm leading-6", t.muted)}>
+        Pick a prompt from the library or ask your own question below.
+      </p>
+    </div>
   );
 }
 
@@ -344,65 +428,89 @@ function TurnCard({ turn, theme }: { turn: Turn; theme: Theme }) {
   const t = getTheme(theme);
 
   return (
-    <div className="animate-[messageIn_260ms_ease-out] space-y-4">
+    <article className="animate-[messageIn_260ms_ease-out] space-y-4">
       <div className="flex justify-end">
-        <div className={cn("max-w-[92%] rounded-2xl rounded-tr-md px-4 py-3 text-sm leading-6 sm:max-w-[76%]", t.user)}>
+        <div
+          className={cn(
+            "max-w-[86%] rounded-[1.4rem] rounded-tr-md px-4 py-3 text-sm leading-6",
+            theme === "dark" ? "bg-[#c8d7a5] text-[#151a14]" : "bg-[#1c241c] text-white",
+          )}
+        >
           {turn.question}
         </div>
       </div>
 
-      <div className="flex gap-3">
-        <div className={cn("mt-1 hidden h-9 w-9 shrink-0 place-items-center rounded-xl sm:grid", theme === "dark" ? "bg-white/[0.06]" : "border border-zinc-200 bg-white")}>
+      <div className="flex items-start gap-3">
+        <div
+          className={cn(
+            "mt-1 grid h-9 w-9 shrink-0 place-items-center rounded-2xl",
+            theme === "dark" ? "bg-white/[0.10]" : "bg-white/80",
+          )}
+        >
           <BrainCircuit className="h-4 w-4" />
         </div>
 
-        <div className={cn("min-w-0 flex-1 rounded-3xl border p-4 sm:p-5", t.assistant)}>
+        <div className={cn("min-w-0 flex-1 rounded-[1.5rem] border p-4", t.cardLight)}>
           {turn.loading ? (
             <div className="space-y-3">
-              <div className={cn("flex items-center gap-2 text-sm", t.muted)}>
+              <div className="flex items-center gap-2 text-sm text-stone-500">
                 <Loader2 className="h-4 w-4 animate-spin" />
                 Searching local documents...
               </div>
               <div className="space-y-2">
-                <div className={cn("h-3 w-[92%] animate-pulse rounded-full", theme === "dark" ? "bg-white/[0.08]" : "bg-zinc-200")} />
-                <div className={cn("h-3 w-[75%] animate-pulse rounded-full", theme === "dark" ? "bg-white/[0.08]" : "bg-zinc-200")} />
-                <div className={cn("h-3 w-[84%] animate-pulse rounded-full", theme === "dark" ? "bg-white/[0.08]" : "bg-zinc-200")} />
+                <div className="h-3 w-[90%] animate-pulse rounded-full bg-stone-200" />
+                <div className="h-3 w-[72%] animate-pulse rounded-full bg-stone-200" />
+                <div className="h-3 w-[80%] animate-pulse rounded-full bg-stone-200" />
               </div>
             </div>
           ) : turn.error ? (
             <div>
-              <p className="font-medium text-red-500">Something went wrong</p>
-              <p className={cn("mt-1 text-sm leading-6", t.muted)}>{turn.error}</p>
+              <p className="font-medium text-red-600">Something went wrong</p>
+              <p className="mt-1 text-sm leading-6 text-stone-600">{turn.error}</p>
             </div>
           ) : turn.response ? (
             <div>
               <div className="mb-3 flex flex-wrap items-center gap-2">
-                <span className={cn("inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium", foundBadgeClass(theme, turn.response.found))}>
-                  {turn.response.found ? <CheckCircle2 className="h-3 w-3" /> : <ShieldCheck className="h-3 w-3" />}
+                <span
+                  className={cn(
+                    "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium",
+                    foundClass(theme, turn.response.found),
+                  )}
+                >
+                  {turn.response.found ? (
+                    <CheckCircle2 className="h-3 w-3" />
+                  ) : (
+                    <ShieldCheck className="h-3 w-3" />
+                  )}
                   {turn.response.found ? "Answer found" : "Safe fallback"}
                 </span>
 
-                <span className={cn("rounded-full border px-2.5 py-1 text-xs font-medium", confidenceClass(theme, turn.response.confidence))}>
+                <span
+                  className={cn(
+                    "rounded-full border px-2.5 py-1 text-xs font-medium",
+                    confidenceClass(theme, turn.response.confidence),
+                  )}
+                >
                   {confidenceLabel(turn.response.confidence)}
                 </span>
               </div>
 
-              <p className={cn("whitespace-pre-wrap text-sm leading-7", theme === "dark" ? "text-zinc-200" : "text-zinc-700")}>
+              <p className="whitespace-pre-wrap text-sm leading-7 text-stone-700">
                 {turn.response.answer}
               </p>
 
-              <div className="mt-5 xl:hidden">
-                <div className={cn("mb-2 flex items-center gap-2 text-sm font-medium", t.muted)}>
+              <div className="mt-5">
+                <div className="mb-2 flex items-center gap-2 text-sm font-medium text-stone-500">
                   <FileSearch className="h-4 w-4" />
                   Sources
                 </div>
-                <SourceBlock sources={turn.response.sources} theme={theme} />
+                <SourceCards sources={turn.response.sources} theme={theme} />
               </div>
             </div>
           ) : null}
         </div>
       </div>
-    </div>
+    </article>
   );
 }
 
@@ -416,7 +524,7 @@ function Composer({
 }: {
   theme: Theme;
   question: string;
-  setQuestion: (question: string) => void;
+  setQuestion: (value: string) => void;
   loading: boolean;
   error: string;
   onSubmit: () => void;
@@ -429,7 +537,7 @@ function Composer({
     if (!textarea) return;
 
     textarea.style.height = "0px";
-    textarea.style.height = `${Math.min(textarea.scrollHeight, 160)}px`;
+    textarea.style.height = `${Math.min(textarea.scrollHeight, 150)}px`;
   }, [question]);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -445,49 +553,52 @@ function Composer({
   }
 
   return (
-    <div className={cn("sticky bottom-0 z-10 border-t px-4 pb-[calc(env(safe-area-inset-bottom)+0.75rem)] pt-3 backdrop-blur-xl sm:px-6", theme === "dark" ? "border-white/[0.08] bg-[#09090b]/92" : "border-zinc-200 bg-[#f7f7f5]/92")}>
-      <form onSubmit={handleSubmit} className="mx-auto max-w-3xl">
-        {error ? (
-          <p className={cn("mb-2 rounded-2xl border px-3 py-2 text-sm", theme === "dark" ? "border-amber-400/20 bg-amber-400/10 text-amber-300" : "border-amber-200 bg-amber-50 text-amber-700")}>
-            {error}
-          </p>
-        ) : null}
+    <form onSubmit={handleSubmit}>
+      {error ? (
+        <p
+          className={cn(
+            "mb-2 rounded-2xl border px-3 py-2 text-sm",
+            theme === "dark"
+              ? "border-amber-300/20 bg-amber-300/10 text-amber-200"
+              : "border-amber-200 bg-amber-50 text-amber-700",
+          )}
+        >
+          {error}
+        </p>
+      ) : null}
 
-        <div className={cn("rounded-3xl border p-2 shadow-sm transition focus-within:ring-4", t.input)}>
-          <div className="flex items-end gap-2">
-            <textarea
-              ref={textareaRef}
-              value={question}
-              disabled={loading}
-              rows={1}
-              onChange={(event) => setQuestion(event.target.value)}
-              onKeyDown={handleKeyDown}
-              placeholder="Ask about risk rules, product behavior, or support workflows..."
-              className="min-h-12 max-h-[160px] flex-1 resize-none bg-transparent px-3 py-3 text-[16px] leading-6 outline-none disabled:opacity-60"
-            />
+      <div className={cn("rounded-[1.7rem] p-2", t.input)}>
+        <div className="flex items-end gap-2">
+          <textarea
+            ref={textareaRef}
+            value={question}
+            disabled={loading}
+            rows={1}
+            onChange={(event) => setQuestion(event.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder="Type your question..."
+            className="min-h-12 max-h-[150px] flex-1 resize-none bg-transparent px-4 py-3 text-[16px] leading-6 outline-none disabled:opacity-60"
+          />
 
-            <button
-              type="submit"
-              disabled={loading || !question.trim()}
-              aria-label="Send question"
-              className={cn("grid h-11 w-11 shrink-0 touch-manipulation place-items-center rounded-2xl transition active:scale-95 disabled:cursor-not-allowed", loading || !question.trim() ? t.sendDisabled : t.send)}
-            >
-              {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : <ArrowUp className="h-5 w-5" />}
-            </button>
-          </div>
-
-          <div className={cn("flex items-center justify-between px-3 pb-1 pt-1.5 text-[11px]", t.subtle)}>
-            <span>Enter to send</span>
-            <span>Shift+Enter for new line</span>
-          </div>
+          <button
+            type="submit"
+            disabled={loading || !question.trim()}
+            aria-label="Send question"
+            className={cn(
+              "grid h-12 w-12 shrink-0 touch-manipulation place-items-center rounded-full transition active:scale-95 disabled:cursor-not-allowed",
+              loading || !question.trim() ? t.disabled : t.accent,
+            )}
+          >
+            {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : <ArrowUp className="h-5 w-5" />}
+          </button>
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
   );
 }
 
 export default function ChatInterface() {
-  const [theme, setTheme] = useState<Theme>("light");
+  const [theme, setTheme] = useState<Theme>("dark");
   const [question, setQuestion] = useState("");
   const [turns, setTurns] = useState<Turn[]>([]);
   const [loading, setLoading] = useState(false);
@@ -496,23 +607,16 @@ export default function ChatInterface() {
   const t = getTheme(theme);
   const endRef = useRef<HTMLDivElement | null>(null);
 
-  const latestResponse = useMemo(() => {
-    for (let index = turns.length - 1; index >= 0; index -= 1) {
-      const turn = turns[index];
-      if (turn.response && !turn.loading) return turn.response;
-    }
-
-    return null;
-  }, [turns]);
+  const hasMessages = turns.length > 0;
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [turns]);
 
   async function askBot(nextQuestion: string) {
-    const trimmedQuestion = nextQuestion.trim();
+    const trimmed = nextQuestion.trim();
 
-    if (!trimmedQuestion) {
+    if (!trimmed) {
       setInlineError("Please enter a question first.");
       return;
     }
@@ -528,7 +632,7 @@ export default function ChatInterface() {
       ...current,
       {
         id,
-        question: trimmedQuestion,
+        question: trimmed,
         loading: true,
       },
     ]);
@@ -541,7 +645,7 @@ export default function ChatInterface() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ question: trimmedQuestion }),
+        body: JSON.stringify({ question: trimmed }),
       });
 
       if (!response.ok) {
@@ -587,7 +691,7 @@ export default function ChatInterface() {
   }
 
   return (
-    <main className={cn("min-h-dvh w-full overflow-x-hidden", t.page)}>
+    <main className={cn("min-h-dvh w-full overflow-x-hidden px-3 py-4 sm:px-5 sm:py-6", t.page)}>
       <style>{`
         @keyframes messageIn {
           from { opacity: 0; transform: translateY(8px); }
@@ -595,119 +699,57 @@ export default function ChatInterface() {
         }
       `}</style>
 
-      <div className="mx-auto flex w-full max-w-[1280px] flex-col px-0 sm:px-4 sm:py-4">
-        <div className={cn("flex min-h-dvh w-full overflow-hidden border sm:min-h-[calc(100dvh-2rem)] sm:rounded-[2rem]", t.shell)}>
-          <Sidebar onPick={handlePick} loading={loading} />
+      <div className={cn("mx-auto w-full max-w-7xl rounded-[2.2rem] border p-3 backdrop-blur-xl sm:p-4", t.app)}>
+        <Header
+          theme={theme}
+          setTheme={setTheme}
+          clearChat={() => setTurns([])}
+          hasMessages={hasMessages}
+        />
 
-          <section className="flex min-w-0 flex-1 flex-col">
-            <header className={cn("flex h-16 shrink-0 items-center justify-between border-b px-4 sm:px-6", t.border)}>
-              <div className="flex min-w-0 items-center gap-3">
-                <div className={cn("grid h-9 w-9 shrink-0 place-items-center rounded-xl", theme === "dark" ? "bg-indigo-400 text-zinc-950" : "bg-zinc-950 text-white")}>
-                  <BrainCircuit className="h-4 w-4" />
-                </div>
+        <div className="mt-5 grid gap-5 lg:grid-cols-[0.88fr_1.12fr]">
+          <LeftStudio theme={theme} loading={loading} onPick={handlePick} />
 
-                <div className="min-w-0">
-                  <p className="truncate text-sm font-semibold">AurumDesk</p>
-                  <p className={cn("truncate text-[11px]", t.muted)}>Knowledge Bot · Local company brain</p>
-                </div>
+          <section className={cn("flex min-h-[640px] flex-col rounded-[2rem] border p-3 sm:p-4", t.panel)}>
+            <div className="mb-3 flex items-center justify-between px-1">
+              <div>
+                <p className="text-sm font-semibold">Knowledge chat</p>
+                <p className={cn("text-xs", t.muted)}>Grounded answers with source evidence</p>
               </div>
 
-              <div className="flex items-center gap-2">
-                <div className={cn("hidden items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium sm:flex", theme === "dark" ? "border-emerald-400/20 bg-emerald-400/10 text-emerald-300" : "border-emerald-200 bg-emerald-50 text-emerald-700")}>
-                  <Database className="h-3.5 w-3.5" />
-                  Local docs only
-                </div>
-
-                <button
-                  type="button"
-                  aria-label="Toggle theme"
-                  onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                  className={cn("grid h-10 w-10 touch-manipulation place-items-center rounded-xl border transition", theme === "dark" ? "border-white/[0.08] bg-white/[0.04] text-zinc-300 hover:bg-white/[0.08]" : "border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-50")}
-                >
-                  {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-                </button>
+              <div
+                className={cn(
+                  "hidden rounded-full border px-3 py-1.5 text-xs font-medium sm:block",
+                  t.accentSoft,
+                )}
+              >
+                No external AI API
               </div>
-            </header>
+            </div>
 
-            <div className="grid min-h-0 flex-1 xl:grid-cols-[minmax(0,1fr)_330px]">
-              <section className={cn("flex min-w-0 flex-col", t.workspace)}>
-                <div className={cn("border-b px-4 py-4 sm:px-6", t.border)}>
-                  <div className="flex items-start gap-3">
-                    <div className={cn("mt-0.5 grid h-10 w-10 shrink-0 place-items-center rounded-xl", theme === "dark" ? "bg-white/[0.06]" : "border border-zinc-200 bg-white")}>
-                      <Bot className="h-4 w-4" />
-                    </div>
+            <div className={cn("flex-1 overflow-y-auto rounded-[1.7rem] border p-3 sm:p-4", t.panel)}>
+              <div className="space-y-5">
+                {turns.length === 0 ? (
+                  <EmptyChat theme={theme} />
+                ) : (
+                  turns.map((turn) => <TurnCard key={turn.id} turn={turn} theme={theme} />)
+                )}
+                <div ref={endRef} />
+              </div>
+            </div>
 
-                    <div>
-                      <h1 className="text-lg font-semibold tracking-tight">Ask the company brain</h1>
-                      <p className={cn("mt-1 text-sm leading-6", t.muted)}>
-                        Answers are grounded in approved local Markdown docs.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className={cn("border-b px-4 py-3 sm:px-6", t.border)}>
-                  <div className="flex gap-2 overflow-x-auto pb-1 md:flex-wrap md:overflow-visible">
-                    {SAMPLE_QUESTIONS.map((sample) => (
-                      <button
-                        key={sample}
-                        type="button"
-                        disabled={loading}
-                        onClick={() => handlePick(sample)}
-                        className={cn("touch-manipulation rounded-full border px-3 py-2 text-xs transition disabled:cursor-not-allowed disabled:opacity-50", t.chip)}
-                      >
-                        {sample}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="min-h-0 flex-1 px-4 py-5 sm:px-6 md:overflow-y-auto">
-                  <div className="mx-auto max-w-3xl space-y-6">
-                    {turns.length === 0 ? (
-                      <EmptyState theme={theme} onPick={handlePick} loading={loading} />
-                    ) : (
-                      turns.map((turn) => <TurnCard key={turn.id} turn={turn} theme={theme} />)
-                    )}
-                    <div ref={endRef} />
-                  </div>
-                </div>
-
-                <Composer
-                  theme={theme}
-                  question={question}
-                  setQuestion={(value) => {
-                    setQuestion(value);
-                    if (inlineError) setInlineError("");
-                  }}
-                  loading={loading}
-                  error={inlineError}
-                  onSubmit={() => void askBot(question)}
-                />
-              </section>
-
-              <aside className={cn("hidden border-l p-4 xl:block", t.border, theme === "dark" ? "bg-[#0e0e12]" : "bg-zinc-50")}>
-                <div className="sticky top-4">
-                  <div className="mb-4 flex items-center justify-between">
-                    <div>
-                      <p className="font-semibold">Evidence</p>
-                      <p className={cn("mt-1 text-xs", t.muted)}>Source documents and matched terms</p>
-                    </div>
-
-                    <div className={cn("grid h-10 w-10 place-items-center rounded-xl", theme === "dark" ? "bg-white/[0.06]" : "border border-zinc-200 bg-white")}>
-                      <FileSearch className="h-4 w-4" />
-                    </div>
-                  </div>
-
-                  {latestResponse ? (
-                    <SourceBlock sources={latestResponse.sources} theme={theme} />
-                  ) : (
-                    <div className={cn("rounded-2xl border p-4 text-sm leading-6", t.panelSoft, t.muted)}>
-                      Ask a question to see the retrieved Markdown sources here.
-                    </div>
-                  )}
-                </div>
-              </aside>
+            <div className="mt-3">
+              <Composer
+                theme={theme}
+                question={question}
+                setQuestion={(value) => {
+                  setQuestion(value);
+                  if (inlineError) setInlineError("");
+                }}
+                loading={loading}
+                error={inlineError}
+                onSubmit={() => void askBot(question)}
+              />
             </div>
           </section>
         </div>

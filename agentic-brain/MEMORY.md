@@ -83,3 +83,9 @@ After the core MVP was working, the UI was improved before publishing the projec
 The goal was to make the demo feel more like a polished AI/Product + Finance prototype instead of a basic technical test. The updated interface includes a responsive layout, mobile-friendly spacing, a dark/light mode toggle, clearer source cards, better empty/loading states, and relevant icons for AI, finance, risk, documents, and trust.
 
 The bilingual UI idea was intentionally postponed to keep the MVP focused and consistent in English.
+
+## UI Direction Decision
+
+The interface went through multiple iterations. Earlier versions looked too much like a generic dashboard or landing page. The final direction uses a mobile-app-inspired command studio layout with dark green/black tones, soft rounded cards, a prompt library, a focused chat panel, source cards, and a bottom composer.
+
+The final UI keeps the MVP stable and avoids risky mobile overlays or complex layout patterns that could break touch interaction on phones.
