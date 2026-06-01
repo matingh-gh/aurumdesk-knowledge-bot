@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AurumDesk Knowledge Bot
 
-## Getting Started
+AurumDesk Knowledge Bot is a small company knowledge assistant for a fictional finance and trading AI company called AurumDesk AI.
 
-First, run the development server:
+The project was built as a practical AI/Product + Finance test. It demonstrates how a small knowledge bot can be planned, documented, implemented, tested, and improved with AI-assisted development.
+
+## What It Does
+
+The app lets a user ask questions about the fictional company and receives answers based only on local Markdown documents inside the `docs/` folder.
+
+The bot can answer questions about:
+
+- Company overview
+- Trading risk rules
+- Daily and total drawdown limits
+- AI Market Brief product behavior
+- Support team procedures
+- Client FAQ
+- Financial advice boundaries
+
+If the answer is not found in the local knowledge base, the bot does not guess. It returns:
+
+`I couldn't find this information in the company knowledge base.`
+
+## Why This Project
+
+The assignment asked for a Mini Company Knowledge Bot with local docs, agent context, memory, tasks, evals, and meaningful Git history.
+
+Instead of building a generic HR bot, this project uses a finance and trading AI context because it is more relevant to a company working around trading, programming, and artificial intelligence.
+
+The project is intentionally small, but it focuses on product quality:
+
+- Simple and clean UI
+- Local knowledge base
+- Source-aware answers
+- Safe no-answer behavior
+- Meaningful Git commits
+- Agentic project documentation
+- Evaluation questions
+
+## Tech Stack
+
+- Next.js
+- TypeScript
+- Tailwind CSS
+- Local Markdown documents
+- Simple keyword and section retrieval
+- No external AI API required for the MVP
+
+## How It Works
+
+1. The user asks a question in the web interface.
+2. The frontend sends the question to `/api/ask`.
+3. The API loads the Markdown files from `docs/`.
+4. The retriever splits documents into sections and scores them by keyword relevance.
+5. The answer layer returns a concise answer from the best matching section.
+6. The UI displays the answer, confidence level, and source document.
+7. If the match is too weak, the bot returns a safe fallback instead of hallucinating.
+
+## Project Structure
+
+- `app/` contains the Next.js app and API route.
+- `components/` contains the chat UI.
+- `lib/` contains document loading, retrieval, and answer logic.
+- `docs/` contains the fictional company knowledge base.
+- `agentic-brain/` contains project brief, context, memory, tasks, and evals.
+
+## Local Setup
+
+Install dependencies:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+npm install

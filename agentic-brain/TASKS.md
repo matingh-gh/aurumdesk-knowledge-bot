@@ -23,7 +23,7 @@
 - [x] Add sample question buttons
 - [x] Add source display in UI
 - [x] Add safe fallback behavior for unknown questions
-- [ ] Improve README
+- [x] Improve README
 - [ ] Run local testing
 - [ ] Record demo video or take screenshots
 - [ ] Create GitHub repository
