@@ -75,3 +75,11 @@ During testing, the daily drawdown question returned both the daily drawdown sec
 The answer generation logic was refined to use only the top retrieved section for the final answer. This makes responses more focused, easier to read, and better for a small MVP demo.
 
 This was an intentional human/product-quality correction after testing the AI-assisted implementation.
+
+## Refinement Note - Professional UI Polish
+
+After the core MVP was working, the UI was improved before publishing the project to GitHub.
+
+The goal was to make the demo feel more like a polished AI/Product + Finance prototype instead of a basic technical test. The updated interface includes a responsive layout, mobile-friendly spacing, a dark/light mode toggle, clearer source cards, better empty/loading states, and relevant icons for AI, finance, risk, documents, and trust.
+
+The bilingual UI idea was intentionally postponed to keep the MVP focused and consistent in English.

@@ -44,3 +44,9 @@
 - [x] `/api/ask` tested with a known answer question
 - [x] `/api/ask` tested with an unknown question
 - [x] UI tested locally at `http://localhost:3000`
+
+## UI Polish Tasks
+
+- [x] Improve responsive professional UI
+- [x] Add dark/light theme toggle
+- [x] Add finance/AI related icons
