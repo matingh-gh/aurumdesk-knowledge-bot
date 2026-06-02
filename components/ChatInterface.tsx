@@ -317,7 +317,7 @@ function LeftStudio({
   const t = getTheme(theme);
 
   return (
-    <section className="space-y-5">
+    <section className="space-y-5 lg:min-h-0 lg:overflow-y-auto lg:pr-1">
       <div className={cn("rounded-[2rem] border p-5 sm:p-6", t.panel)}>
         <div className="mb-8 flex items-center justify-between">
           <span
@@ -465,7 +465,7 @@ function TurnCard({ turn, theme }: { turn: Turn; theme: Theme }) {
                 <span
                   className={cn(
                     "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium",
-                    foundClass(theme, turn.response.found),
+                    foundClass("light", turn.response.found),
                   )}
                 >
                   {turn.response.found ? (
@@ -479,7 +479,7 @@ function TurnCard({ turn, theme }: { turn: Turn; theme: Theme }) {
                 <span
                   className={cn(
                     "rounded-full border px-2.5 py-1 text-xs font-medium",
-                    confidenceClass(theme, turn.response.confidence),
+                    confidenceClass("light", turn.response.confidence),
                   )}
                 >
                   {confidenceLabel(turn.response.confidence)}
@@ -495,7 +495,7 @@ function TurnCard({ turn, theme }: { turn: Turn; theme: Theme }) {
                   <FileSearch className="h-4 w-4" />
                   Sources
                 </div>
-                <SourceCards sources={turn.response.sources} theme={theme} />
+                <SourceCards sources={turn.response.sources} theme="light" />
               </div>
             </div>
           ) : null}
@@ -682,15 +682,28 @@ export default function ChatInterface() {
   }
 
   return (
-    <main className={cn("min-h-dvh w-full overflow-x-hidden px-3 py-4 sm:px-5 sm:py-6", t.page)}>
+    <main className={cn("min-h-dvh w-full overflow-x-hidden px-3 py-4 sm:px-5 sm:py-6 lg:h-dvh lg:overflow-hidden", t.page)}>
       <style>{`
         @keyframes messageIn {
           from { opacity: 0; transform: translateY(8px); }
           to { opacity: 1; transform: translateY(0); }
         }
+
+        .command-studio,
+        .command-studio * {
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+        }
+
+        .command-studio::-webkit-scrollbar,
+        .command-studio *::-webkit-scrollbar {
+          width: 0;
+          height: 0;
+          display: none;
+        }
       `}</style>
 
-      <div className={cn("mx-auto w-full max-w-7xl rounded-[2.2rem] border p-3 backdrop-blur-xl sm:p-4", t.app)}>
+      <div className={cn("mx-auto w-full max-w-7xl rounded-[2.2rem] border p-3 backdrop-blur-xl sm:p-4 lg:h-[calc(100dvh-3rem)] lg:overflow-hidden", t.app)}>
         <Header
           theme={theme}
           setTheme={setTheme}
@@ -698,10 +711,10 @@ export default function ChatInterface() {
           hasMessages={hasMessages}
         />
 
-        <div className="mt-5 grid gap-5 lg:grid-cols-[0.88fr_1.12fr]">
+        <div className="mt-5 grid gap-5 lg:h-[calc(100%-4rem)] lg:min-h-0 lg:grid-cols-[0.88fr_1.12fr]">
           <LeftStudio theme={theme} loading={loading} onPick={handlePick} />
 
-          <section className={cn("flex min-h-[640px] flex-col rounded-[2rem] border p-3 sm:p-4", t.panel)}>
+          <section className={cn("flex min-h-[620px] flex-col rounded-[2rem] border p-3 sm:p-4 lg:h-full lg:min-h-0", t.panel)}>
             <div className="mb-3 flex items-center justify-between px-1">
               <div>
                 <p className="text-sm font-semibold">Knowledge chat</p>
@@ -718,7 +731,7 @@ export default function ChatInterface() {
               </div>
             </div>
 
-            <div className={cn("flex-1 overflow-y-auto rounded-[1.7rem] border p-3 sm:p-4", t.panel)}>
+            <div className={cn("min-h-0 flex-1 overflow-y-auto rounded-[1.7rem] border p-3 sm:p-4", t.panel)}>
               <div className="space-y-5">
                 {turns.length === 0 ? (
                   <EmptyChat theme={theme} />
