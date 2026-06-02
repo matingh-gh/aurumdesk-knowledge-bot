@@ -30,3 +30,17 @@ AurumDesk AI helps financial teams reduce research time, organize market informa
 ## What AurumDesk AI Does Not Do
 
 AurumDesk AI does not promise profits, does not manage client funds directly, and does not provide personalized financial advice.
+
+## What does AurumDesk AI do?
+
+AurumDesk AI is a fictional finance and trading AI company that builds tools for market research, risk awareness, and internal knowledge support.
+
+The company focuses on helping traders, analysts, and support teams work with better context. Its tools are designed to summarize information, explain company policies, support risk workflows, and make internal knowledge easier to access.
+
+AurumDesk AI does not replace human decision-making. Its products are designed to support users with structured information, source-aware answers, and safer workflows.
+
+## What is the AurumDesk Knowledge Bot?
+
+The AurumDesk Knowledge Bot is a local company knowledge assistant. It answers user questions based only on approved Markdown documents stored inside the local docs folder.
+
+The bot is designed to reduce hallucination by grounding answers in company documents and showing the source section used for each answer.

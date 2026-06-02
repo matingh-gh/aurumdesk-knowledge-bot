@@ -34,3 +34,29 @@ The product does not execute trades and does not replace human judgment.
 ## Ideal User
 
 The ideal user is a trader, analyst, or portfolio team member who already understands basic financial markets but wants faster research workflows.
+
+## What does AI Market Brief do?
+
+AI Market Brief is AurumDesk AI's research and market intelligence product. It helps users understand market conditions by summarizing important market movements, risk signals, macroeconomic events, and relevant trading context.
+
+The product is designed to support human decision-making. It gives users a structured daily or intraday overview of what is happening in the market, but it does not place trades automatically and does not provide personalized financial advice.
+
+AI Market Brief can help users:
+
+1. Understand major market themes.
+2. Review important risk events.
+3. See summarized market context.
+4. Identify topics that may require deeper research.
+5. Prepare for trading or investment discussions with better information.
+
+## Who is AI Market Brief for?
+
+AI Market Brief is designed for traders, analysts, finance teams, and AI-assisted research workflows that need fast, structured, and source-aware market context.
+
+It is especially useful for users who want a concise overview before making their own trading or research decisions.
+
+## What AI Market Brief does not do
+
+AI Market Brief does not execute trades, manage accounts, guarantee returns, or tell users exactly what to buy or sell.
+
+It is an information and research tool, not an automated trading system or financial advisor.
