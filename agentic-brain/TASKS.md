@@ -25,16 +25,16 @@
 - [x] Add safe fallback behavior for unknown questions
 - [x] Improve README
 - [x] Run local testing
-- [ ] Record demo video or take screenshots
-- [ ] Create GitHub repository
-- [ ] Push final project to GitHub
+- [x] Record demo video or take screenshots
+- [x] Create GitHub repository
+- [x] Push final project to GitHub
 
 ## Stretch Goals
 
 - [ ] Add document section highlighting
-- [ ] Add confidence score
+- [x] Add confidence score
 - [ ] Add basic evaluation script
-- [ ] Add dark/light UI polish
+- [x] Add dark/light UI polish
 - [ ] Add deployment link if time allows
 
 ## Final Verification
